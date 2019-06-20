@@ -10,7 +10,8 @@ if resp.status_code  == 200:
 resp = requests.get("http://hapi.clinicalprofiles.org/baseR4/ClinicalProfile/eds-All-All-10-19")
 if resp.status_code == 200:
     var = loads(resp.text)
-var_codes = {l.code[0].coding[0].code: loinc_name_for(v.lab.code[0].coding[0].code) for v in var}
+var_codes = {l.code[0].coding[0].code: loinc_name_for(l.code[0].coding[0].code) for l in var.lab}
+print([var_codes.items()][0])
 
 
 v1 = var.lab[0].scalarDistribution.decile
